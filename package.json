@@ -1,0 +1,25 @@
+{
+  "name": "nodejs-technical-test",
+  "version": "1.0.0",
+  "description": "A NodeJS Technical test",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest --forceExit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alaborderie/nodejs-technical-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alaborderie/nodejs-technical-test/issues"
+  },
+  "homepage": "https://github.com/alaborderie/nodejs-technical-test#readme",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "jest": "^27.0.6"
+  }
+}
