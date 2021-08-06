@@ -8,15 +8,34 @@ const server = require('../src')
 let authJWT = ''
 
 describe('NodeJS Tests', () => {
-  beforeAll(() => {
-    // Create a new user with sequelize, mongo, or any ORM
-    // User should have this email: node@test.com
-    // User should have this password: n0d3jst3s!
-    // User should have firstName "node" and lastName "test'
-    // You don't need to hash the password in the database for this test app
+  describe('POST /subscribe', () => {
+    test('Should create a new account (200)', async () => {
+      const res = await chai
+        .request(server)
+        .post('/subscribe')
+        .send({ email: 'node@test.com', firstName: 'node', lastName: 'test', password: 'n0d3jst3s!'})
 
-    // Create another user we'll use later with this email: friend@test.com
-    // User should have firstName "friend" and lastName "test"
+      expect(res.status).toEqual(200)
+      expect(res.body.data).toBeDefined()
+    })
+    test('Should fail because email already exists (400)', async () => {
+      const res = await chai
+        .request(server)
+        .post('/subscribe')
+        .send({ email: 'node@test.com', firstName: 'node', lastName: 'test', password: 'n0d3jst3s!'})
+
+      expect(res.status).toEqual(400)
+      expect(res.body.error).toBeDefined()
+    })
+    test('Should create a new friend account (200)', async () => {
+      const res = await chai
+        .request(server)
+        .post('/subscribe')
+        .send({ email: 'friend@test.com', firstName: 'friend', lastName: 'test', password: 'n0d3jst3s!'})
+
+      expect(res.status).toEqual(200)
+      expect(res.body.data).toBeDefined()
+    })
   })
 
   describe('POST /login', () => {
