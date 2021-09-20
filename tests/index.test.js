@@ -5,8 +5,12 @@ chai.use(chaiHttp)
 const server = require('../src')
 // We are going to store the JWT in this variable to easily pass it to routes that need it
 // Login should be done with a Authorization header like "Bearer eyJhbGcioi..."
-let authJWT = ''
+let authJWT = 'i'
 
+// We don't receive `userId` or `groupId` in response in those tests because I don't want to force you ro use incremental ids.
+// If you want to use `uuid` or anything else, you can
+// Feel free to update tests to add `userId` or `groupId` in the `.toMatchObject` if you want
+// Anyway, you can update tests as much as you like, as long as you don't remove test coverage.
 describe('NodeJS Tests', () => {
   describe('POST /subscribe', () => {
     test('Should create a new account (200)', async () => {
@@ -123,7 +127,7 @@ describe('NodeJS Tests', () => {
     test('Should create a new group and return it with current user in it (200)', async () => {
       const res = await chai
         .request(server)
-        .get('/groups')
+        .post('/groups')
         .auth(authJWT, { type: 'bearer' })
         .send({ name: 'My Awesome Group' })
 
@@ -158,7 +162,7 @@ describe('NodeJS Tests', () => {
     test('Should invite user to our group', async () => {
       const res = await chai
         .request(server)
-        .get('/groups/1/invite')
+        .post('/groups/1/invite')
         .auth(authJWT, { type: 'bearer' })
         .send({ email: 'frient@test.com' })
 
